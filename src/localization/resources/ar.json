@@ -1,0 +1,23 @@
+{
+  "greeting": "{{name}} مرحبًا!",
+  "language": "عربى",
+  "screen": {
+    "welcome": {
+      "signIn": "تسجيل الدخول",
+      "signUp": "سجل"
+    },
+    "settings": {
+      "title": "إعدادات",
+      "changeLanguage": "تحديث اللغة",
+      "darkMode": "الوضع الداكن",
+      "themes": "الموضوعات",
+      "systemDefault": "النظام الافتراضي"
+    }
+  },
+  "alert": {
+    "update": "يرجى تحديث التطبيق للمتابعة"
+  },
+  "buttons": {
+    "ok": "نعم"
+  }
+}

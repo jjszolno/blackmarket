@@ -1,0 +1,26 @@
+{
+  "greeting": "Hello {{name}}!",
+  "language": "English",
+  "screen": {
+    "welcome": {
+      "signIn": "Sign In",
+      "signUp": "Sign Up"
+    },
+    "settings": {
+      "title": "Settings",
+      "changeLanguage": "Change Language",
+      "darkMode": "Dark Mode",
+      "themes": "Themes",
+      "systemDefault": "System Default"
+    },
+    "home": {
+      "title": "Home Screen"
+    }
+  },
+  "alert": {
+    "update": "Please update the app to continue"
+  },
+  "buttons": {
+    "ok": "Ok"
+  }
+}

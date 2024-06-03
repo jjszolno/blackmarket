@@ -1,0 +1,23 @@
+{
+  "greeting": "¡Hola {{name}}!",
+  "language": "Español",
+  "screen": {
+    "welcome": {
+      "signIn": "Iniciar sesión",
+      "signUp": "Registrarse"
+    },
+    "settings": {
+      "title": "Configuración",
+      "changeLanguage": "Cambiar idioma",
+      "darkMode": "Modo oscuro",
+      "themes": "Temas",
+      "systemDefault": "Predeterminado del sistema"
+    }
+  },
+  "alert": {
+    "update": "Actualice la aplicación para continuar."
+  },
+  "buttons": {
+    "ok": "Ok"
+  }
+}

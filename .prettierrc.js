@@ -1,0 +1,27 @@
+module.exports = {
+  arrowParens: 'avoid',
+  bracketSameLine: true,
+  bracketSpacing: true,
+  singleQuote: true,
+  trailingComma: 'all',
+  printWidth: 100,
+
+  importOrder: [
+    '^@(.*)/(.*)$',
+    '^components/(.*)$',
+    '^common/(.*)$',
+    '^constants/(.*)$',
+    '^features/(.*)$',
+    '^hooks/(.*)$',
+    '^localization/(.*)$',
+    '^navigation',
+    '^navigation/(.*)$',
+    '^network/(.*)$',
+    '^storage',
+    '^storage/(.*)$',
+    '^themes/(.*)$',
+    '^[./*]',
+  ],
+  importOrderSeparation: true,
+  importOrderSortSpecifiers: true,
+};

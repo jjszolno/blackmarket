@@ -53,17 +53,20 @@ const styles = StyleSheet.create({
 
   error: {
     color: 'red',
+    padding: 10,
   },
 
   info: {
     marginTop: 20,
     fontSize: 14,
     textAlign: 'center',
+    alignSelf: 'center',
   },
 
   link: {
     color: '#000000',
     textDecorationLine: 'underline',
+    fontSize: 14,
   },
 });
 

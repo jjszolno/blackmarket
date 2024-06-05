@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Image, ImageBackground, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
+import { AuthStackScreens } from 'navigation/stacks/auth';
+
 import styles from './styles';
 import { SignUpNavigationProps } from './types';
 
-const SignUpScreen: React.FunctionComponent<SignUpNavigationProps> = () => {
+const SignUpScreen: React.FunctionComponent<SignUpNavigationProps> = props => {
   const [email, setEmail] = useState('');
   const [fullName, setFullName] = useState('');
   const [password, setPassword] = useState('');
@@ -12,9 +14,18 @@ const SignUpScreen: React.FunctionComponent<SignUpNavigationProps> = () => {
   const [error, setError] = useState('');
 
   const onSignUpPress = () => {
-    console.log('Sign Up Pressed');
-  };
-  const onLoginPress = () => {
+    if (!email || !fullName || !password || !confirmPassword) {
+      setError('Please fill in all fields');
+      return;
+    }
+    if (email.includes('@') === false) {
+      setError('Please enter a valid email');
+      return;
+    }
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
     setError('');
   };
 
@@ -51,16 +62,15 @@ const SignUpScreen: React.FunctionComponent<SignUpNavigationProps> = () => {
         <TouchableOpacity style={styles.button} onPress={onSignUpPress}>
           <Text style={styles.buttonText}>Sign Up</Text>
         </TouchableOpacity>
+        {error ? <Text style={styles.error}>{error}</Text> : null}
         <Text style={styles.info}>
           By signing up, you accept the <Text style={styles.link}>Data Policy.</Text>
         </Text>
-        {error ? <Text style={styles.error}>{error}</Text> : null}
-        <Text style={styles.info}>
-          Already have an account?{' '}
-          <Text style={styles.link} onPress={onLoginPress}>
-            Log in
+        <TouchableOpacity onPress={() => props.navigation.navigate(AuthStackScreens.SignIn)}>
+          <Text style={styles.info}>
+            Already have an account? <Text style={styles.link}>Log in</Text>
           </Text>
-        </Text>
+        </TouchableOpacity>
       </View>
     </ImageBackground>
   );

@@ -96,11 +96,13 @@ const SignUpScreen: React.FunctionComponent<SignUpNavigationProps> = props => {
         </TouchableOpacity>
         {error ? <Text style={styles.error}>{error}</Text> : null}
         <Text style={styles.info}>
-          {common.screen.signUp.accept}<Text style={styles.link}>{common.screen.signUp.dataPolicy}</Text>
+          {common.screen.signUp.accept}
+          <Text style={styles.link}>{common.screen.signUp.dataPolicy}</Text>
         </Text>
         <TouchableOpacity onPress={() => props.navigation.navigate(AuthStackScreens.SignIn)}>
           <Text style={styles.info}>
-            {common.screen.signUp.already}<Text style={styles.link}>{common.screen.signUp.signIn}</Text>
+            {common.screen.signUp.already}
+            <Text style={styles.link}>{common.screen.signUp.signIn}</Text>
           </Text>
         </TouchableOpacity>
       </View>

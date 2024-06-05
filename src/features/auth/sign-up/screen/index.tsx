@@ -3,18 +3,30 @@ import { Image, ImageBackground, Text, TextInput, TouchableOpacity, View } from 
 
 import { AuthStackScreens } from 'navigation/stacks/auth';
 
+import { useSignUp } from 'network/queries/user-queries';
+
 import styles from './styles';
 import { SignUpNavigationProps } from './types';
+import { SignUpRequest } from 'network/models/user-models';
 
 const SignUpScreen: React.FunctionComponent<SignUpNavigationProps> = props => {
   const [email, setEmail] = useState('');
-  const [fullName, setFullName] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [error, setError] = useState('');
 
+  const { mutate } = useSignUp({
+    onError: () => {
+      setError('Could not sign up');
+    },
+    onSuccess: () => {
+      props.navigation.navigate(AuthStackScreens.Welcome);
+    },
+  });
+
   const onSignUpPress = () => {
-    if (!email || !fullName || !password || !confirmPassword) {
+    if (!email || !name || !password || !passwordConfirmation) {
       setError('Please fill in all fields');
       return;
     }
@@ -22,11 +34,22 @@ const SignUpScreen: React.FunctionComponent<SignUpNavigationProps> = props => {
       setError('Please enter a valid email');
       return;
     }
-    if (password !== confirmPassword) {
+    if (password !== passwordConfirmation) {
       setError('Passwords do not match');
       return;
     }
     setError('');
+
+    const userInfo: SignUpRequest = {
+      user: {
+        email,
+        name,
+        password,
+        passwordConfirmation,
+      },
+    };
+
+    mutate(userInfo);
   };
 
   return (
@@ -42,7 +65,7 @@ const SignUpScreen: React.FunctionComponent<SignUpNavigationProps> = props => {
           onChangeText={setEmail}
         />
         <Text style={styles.text}>Full Name</Text>
-        <TextInput style={styles.input} value={fullName} onChangeText={setFullName} />
+        <TextInput style={styles.input} value={name} onChangeText={setName} />
         <Text style={styles.text}>Password</Text>
         <TextInput
           style={styles.input}
@@ -56,8 +79,8 @@ const SignUpScreen: React.FunctionComponent<SignUpNavigationProps> = props => {
           style={styles.input}
           autoCapitalize="none"
           secureTextEntry
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
+          value={passwordConfirmation}
+          onChangeText={setPasswordConfirmation}
         />
         <TouchableOpacity style={styles.button} onPress={onSignUpPress}>
           <Text style={styles.buttonText}>Sign Up</Text>

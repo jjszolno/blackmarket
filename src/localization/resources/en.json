@@ -35,6 +35,20 @@
       "hintName": "Type your name",
       "hintPassword": "Type your password",
       "hintPasswordConfirmation": "Confirm your password"
+    },
+    "signIn": {
+      "title": "Sign In",
+      "email": "Email",
+      "password": "Password",
+      "signUp": "Sign Up",
+      "signIn": "Log In",
+      "errorAPI": "Could not sign in",
+      "errorEmpty": "Please fill in all fields",
+      "errorEmail": "Please enter a valid email",
+      "hintMail": "Type your email",
+      "hintPassword": "Type your password",
+      "forgotPassword": "I forgot my password",
+      "noAccount": "Don't have an account? "
     }
   },
   "alert": {

@@ -7,6 +7,13 @@ export type SignUpRequest = {
   };
 };
 
+export type SignInRequest = {
+  user: {
+    email: string;
+    password: string;
+  };
+};
+
 export type SignUpResponse = {
   status: string;
   data: {
@@ -18,8 +25,6 @@ export type SignUpResponse = {
     name: string;
     nickname: string;
     image: string;
-    created_at: string;
-    updated_at: string;
     birthday: string;
   };
 };

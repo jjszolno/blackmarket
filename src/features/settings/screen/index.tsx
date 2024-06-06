@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Text, View } from 'react-native';
+import { clearUser } from 'store';
 
 import Button from 'common/Button';
 
@@ -19,6 +20,10 @@ const Settings = () => {
 
   const onChangeLanguage = (lang: Language) => {
     setLanguage(lang);
+  };
+
+  const logout = () => {
+    clearUser();
   };
 
   return (
@@ -66,6 +71,14 @@ const Settings = () => {
           title="Arabic"
           disabled={language === 'ar'}
           onPress={() => onChangeLanguage('ar')}
+          style={styles.button}
+        />
+      </View>
+      <View style={styles.bottom}>
+        <Button
+          title="Log Out"
+          disabled={language === 'ar'}
+          onPress={logout}
           style={styles.button}
         />
       </View>

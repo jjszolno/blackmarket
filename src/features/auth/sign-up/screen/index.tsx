@@ -24,9 +24,7 @@ const SignUpScreen: React.FunctionComponent<SignUpNavigationProps> = props => {
     onError: () => {
       setError(common.screen.signUp.errorAPI);
     },
-    onSuccess: () => {
-      props.navigation.navigate(AuthStackScreens.Welcome);
-    },
+    onSuccess: () => {},
   });
 
   const onSignUpPress = () => {
@@ -95,7 +93,7 @@ const SignUpScreen: React.FunctionComponent<SignUpNavigationProps> = props => {
           placeholder={common.screen.signUp.hintPasswordConfirmation}
         />
         <TouchableOpacity style={styles.button} onPress={onSignUpPress}>
-          <Text style={styles.buttonText}>Sign Up</Text>
+          <Text style={styles.buttonText}>{common.screen.signUp.signUp}</Text>
         </TouchableOpacity>
         {error ? <Text style={styles.error}>{error}</Text> : null}
         <Text style={styles.info}>

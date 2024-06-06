@@ -55,6 +55,11 @@ const useStyles = () => {
       fontSize: 12,
       color: colors.text,
     },
+    bottom: {
+      paddingHorizontal: 20,
+      position: 'absolute',
+      bottom: 20,
+    },
   });
 };
 

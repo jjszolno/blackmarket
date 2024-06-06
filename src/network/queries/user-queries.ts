@@ -10,4 +10,10 @@ const useSignUp = ({ onError, onSuccess }: AxiosResult<SignUpResponse>) =>
     onSuccess,
   });
 
-export { useSignUp };
+const useSignIn = ({ onError, onSuccess }: AxiosResult<SignUpResponse>) =>
+  useMutation(UserService.login, {
+    onError,
+    onSuccess,
+  });
+
+export { useSignUp, useSignIn };

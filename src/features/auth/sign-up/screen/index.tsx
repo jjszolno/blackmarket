@@ -17,6 +17,9 @@ const SignUpScreen: React.FunctionComponent<SignUpNavigationProps> = props => {
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [error, setError] = useState('');
 
+  const backgroundImage = require('assets/auth/background.jpeg');
+  const logoImage = require('assets/auth/logo.png');
+
   const { mutate } = useSignUp({
     onError: () => {
       setError(common.screen.signUp.errorAPI);
@@ -54,9 +57,9 @@ const SignUpScreen: React.FunctionComponent<SignUpNavigationProps> = props => {
   };
 
   return (
-    <ImageBackground source={require('assets/auth/background.jpeg')} style={styles.background}>
+    <ImageBackground source={backgroundImage} style={styles.background}>
       <View style={styles.container}>
-        <Image source={require('assets/auth/logo.png')} style={styles.logo} />
+        <Image source={logoImage} style={styles.logo} />
         <Text style={styles.text}>{common.screen.signUp.email}</Text>
         <TextInput
           autoComplete="email"

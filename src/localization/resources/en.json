@@ -49,7 +49,19 @@
       "hintPassword": "Type your password",
       "forgotPassword": "I forgot my password",
       "noAccount": "Don't have an account? "
-    }
+    },
+    "cart": {
+      "title": "Cart",
+      "empty": "Your cart is empty"
+    },
+    "purchases": {
+      "title": "Purchases",
+      "empty": "Your purchases is empty"
+    },
+    "favourites": {
+      "title": "Favourites",
+      "empty": "Your favourites are empty"
+    },
   },
   "alert": {
     "update": "Please update the app to continue"

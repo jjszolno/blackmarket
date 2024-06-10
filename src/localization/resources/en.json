@@ -61,7 +61,7 @@
     "favourites": {
       "title": "Favourites",
       "empty": "Your favourites are empty"
-    },
+    }
   },
   "alert": {
     "update": "Please update the app to continue"

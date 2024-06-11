@@ -5,14 +5,14 @@ import { translate } from 'localization/hooks';
 
 import styles from './styles';
 
-const FavouritesScreen = () => {
+const FavoritesScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Text accessibilityRole="text" style={styles.title}>
-        {translate('screen.favourites.title')}
+        {translate('screen.favorites.title')}
       </Text>
     </SafeAreaView>
   );
 };
 
-export default FavouritesScreen;
+export default FavoritesScreen;

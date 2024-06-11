@@ -58,9 +58,9 @@
       "title": "Purchases",
       "empty": "Your purchases is empty"
     },
-    "favourites": {
-      "title": "Favourites",
-      "empty": "Your favourites are empty"
+    "favorites": {
+      "title": "Favorites",
+      "empty": "Your favorites are empty"
     }
   },
   "alert": {

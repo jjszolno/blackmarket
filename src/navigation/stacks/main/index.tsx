@@ -4,10 +4,12 @@ import Icon from 'react-native-vector-icons/Entypo';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 import CartScreen from 'features/cart/screen';
-import FavouritesScreen from 'features/favourites/screen';
+import FavoritesScreen from 'features/favorites/screen';
 import HomeScreen from 'features/home/screen';
 import PurchasesScreen from 'features/purchases/screen';
 import SettingScreen from 'features/settings/screen';
+
+import { translate } from 'localization/hooks';
 
 import styles from './styles';
 
@@ -34,20 +36,24 @@ const MainStack = () => {
       activeColor="#000"
       activeIndicatorStyle={styles.itemActive}
       inactiveColor="#fff">
-      <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarIcon: HomeIcon }} />
       <Tab.Screen
-        name="Purchases"
+        name={translate('screen.home.title')}
+        component={HomeScreen}
+        options={{ tabBarIcon: HomeIcon }}
+      />
+      <Tab.Screen
+        name={translate('screen.purchases.title')}
         component={PurchasesScreen}
         options={{ tabBarIcon: PurchasesIcon }}
       />
       <Tab.Screen name="Cart" component={CartScreen} options={{ tabBarIcon: CartIcon }} />
       <Tab.Screen
-        name="Favourites"
-        component={FavouritesScreen}
+        name={translate('screen.favorites.title')}
+        component={FavoritesScreen}
         options={{ tabBarIcon: FavoritesIcon }}
       />
       <Tab.Screen
-        name="Settings"
+        name={translate('screen.settings.title')}
         component={SettingScreen}
         options={{ tabBarIcon: SettingsIcon }}
       />

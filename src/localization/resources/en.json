@@ -49,6 +49,18 @@
       "hintPassword": "Type your password",
       "forgotPassword": "I forgot my password",
       "noAccount": "Don't have an account? "
+    },
+    "cart": {
+      "title": "Cart",
+      "empty": "Your cart is empty"
+    },
+    "purchases": {
+      "title": "Purchases",
+      "empty": "Your purchases is empty"
+    },
+    "favorites": {
+      "title": "Favorites",
+      "empty": "Your favorites are empty"
     }
   },
   "alert": {

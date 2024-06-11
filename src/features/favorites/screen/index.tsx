@@ -3,18 +3,16 @@ import { SafeAreaView, Text } from 'react-native';
 
 import { translate } from 'localization/hooks';
 
-import useStyles from './styles';
+import styles from './styles';
 
-const HomeScreen: React.FunctionComponent = () => {
-  const styles = useStyles();
-
+const FavoritesScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Text accessibilityRole="text" style={styles.title}>
-        {translate('screen.home.title')}
+        {translate('screen.favorites.title')}
       </Text>
     </SafeAreaView>
   );
 };
 
-export default HomeScreen;
+export default FavoritesScreen;

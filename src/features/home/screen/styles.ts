@@ -18,15 +18,16 @@ const useStyles = () => {
       color: colors.text,
     },
     button: {
-      position: 'absolute',
-      top: 20,
-      right: 20,
-      width: 40,
-      height: 40,
-      borderRadius: 30,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: colors.action,
+      marginTop: 10,
+      backgroundColor: '#000000',
+      padding: 10,
+      borderRadius: 5,
+    },
+    buttonText: {
+      color: '#ffffff',
+      textAlign: 'center',
+      fontSize: 16,
+      fontWeight: 'bold',
     },
   });
 };

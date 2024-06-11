@@ -21,7 +21,7 @@ export default () => {
     if (headers && headers[CONTENT_TYPE] !== MULTIPART_FORM_DATA) {
       request.data = humps.decamelizeKeys(data);
     }
-
+    console.log('request', request);
     return request;
   });
 
@@ -40,6 +40,7 @@ export default () => {
       }
 
       response.data = humps.camelizeKeys(data);
+      console.log('response', response);
       return response;
     },
     error =>

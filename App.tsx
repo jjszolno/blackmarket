@@ -9,14 +9,11 @@ import AnimatedBootSplash from 'common/AnimatedSplash';
 
 import NavigationStack from 'navigation';
 
-import interceptors from 'network/client/interceptors';
-
 import { useThemeConfig } from 'themes/useThemeConfig';
 
 const client = new QueryClient();
 
 const App: () => React.JSX.Element = () => {
-  interceptors();
   const { theme } = useThemeConfig();
   const { dark: isDarkMode } = useTheme();
   const [visible, setVisible] = useState(true);

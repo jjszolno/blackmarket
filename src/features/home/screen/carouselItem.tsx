@@ -5,8 +5,6 @@ import Icon from 'react-native-vector-icons/Entypo';
 import { Product } from 'network/models/product-models';
 
 const CarouselItem: React.FunctionComponent<{ item: Product }> = ({ item }) => {
-  console.log(JSON.stringify(item, null, 2));
-  console.log('Price: ', item.unitPrice);
   return (
     <View style={styles.container}>
       <Image source={{ uri: item.pictures ? item.pictures[0] : '' }} style={styles.image} />

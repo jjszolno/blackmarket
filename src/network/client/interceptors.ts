@@ -1,34 +1,33 @@
 import humps from 'humps';
-import { setUser, useAuth } from 'store';
+import { authStore, setUser } from 'store';
 
 import httpClient, { CONTENT_TYPE, MULTIPART_FORM_DATA } from '.';
 
-const ACCESS_TOKEN = 'access-token';
+const AUTHORIZATION = 'authorization';
 
 export default () => {
   httpClient.interceptors.request.use(request => {
     const { data, headers } = request;
 
-    const { user } = useAuth();
+    const { user } = authStore.getState();
 
     if (user) {
       const { token } = user;
 
       // TODO: attach extra params to request
-      headers[ACCESS_TOKEN] = token;
+      headers[AUTHORIZATION] = `${token}`;
     }
 
     if (headers && headers[CONTENT_TYPE] !== MULTIPART_FORM_DATA) {
       request.data = humps.decamelizeKeys(data);
     }
-    console.log('request', request);
     return request;
   });
 
   httpClient.interceptors.response.use(
     async response => {
       const { data, headers } = response;
-      const token = headers[ACCESS_TOKEN];
+      const token = headers[AUTHORIZATION];
 
       if (token) {
         // TODO: save extra params to storage
@@ -40,7 +39,6 @@ export default () => {
       }
 
       response.data = humps.camelizeKeys(data);
-      console.log('response', response);
       return response;
     },
     error =>

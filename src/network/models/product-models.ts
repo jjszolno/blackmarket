@@ -22,7 +22,7 @@ export type Product = {
   description: string;
   state: string;
   stock: number;
-  unit_price: string;
+  unitPrice: string;
   pictures?: string[];
   category?: Category;
 };

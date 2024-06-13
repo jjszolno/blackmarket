@@ -14,7 +14,17 @@
       "systemDefault": "System Default"
     },
     "home": {
-      "title": "Home Screen"
+      "title": "Home Screen",
+      "seeAll": "See All",
+      "check": "Check out our new and restored furniture",
+      "discount": "Shop today and get a 10% discount!",
+      "payments": "Payment methods",
+      "credit": "Credit",
+      "paypal": "Paypal",
+      "crypto": "Crypto",
+      "shipment": "We upgraded our shipments many levels up.",
+      "powered": "Powered by ",
+      "fedex": "FedEx"
     },
     "signUp": {
       "title": "Sign Up",

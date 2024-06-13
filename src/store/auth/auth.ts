@@ -29,6 +29,7 @@ const _useAuth = create(
 );
 
 export const useAuth = createSelectors(_useAuth);
+export const authStore = _useAuth;
 
 export const setUser = (user: User) => _useAuth.getState().setUser(user);
 export const clearUser = () => _useAuth.getState().clearUser();

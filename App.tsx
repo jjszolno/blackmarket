@@ -9,9 +9,12 @@ import AnimatedBootSplash from 'common/AnimatedSplash';
 
 import NavigationStack from 'navigation';
 
+import interceptors from 'network/client/interceptors';
+
 import { useThemeConfig } from 'themes/useThemeConfig';
 
 const client = new QueryClient();
+interceptors();
 
 const App: () => React.JSX.Element = () => {
   const { theme } = useThemeConfig();

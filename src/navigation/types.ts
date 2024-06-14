@@ -1,6 +1,7 @@
 import type { RouteProp as NRouteProp } from '@react-navigation/native';
 
 import { AuthStackParamList } from './stacks/auth';
+import { MainStackParamList } from './stacks/main';
 
 export enum RootStacks {
   AuthStack = 'AuthStack',
@@ -8,7 +9,7 @@ export enum RootStacks {
 }
 
 // You need to add any other stack params list created in the app here to enhance the navigation type check's
-export type RootStackParamList = AuthStackParamList;
+export type RootStackParamList = MainStackParamList & AuthStackParamList;
 
 // very important to type check useNavigation hook
 declare global {

@@ -25,11 +25,11 @@ export type Product = {
   unitPrice: string;
   pictures?: string[];
   category?: Category;
+  subcategories?: Category[];
 };
 
 export type Category = {
   id: string;
   name: string;
   description: string;
-  subcategories?: Category[];
 };

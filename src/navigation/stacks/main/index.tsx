@@ -2,10 +2,12 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/Entypo';
 
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import CartScreen from 'features/cart/screen';
 import FavoritesScreen from 'features/favorites/screen';
 import HomeScreen from 'features/home/screen';
+import DetailScreen from 'features/productDetail/screen';
 import ProductsScreen from 'features/products/screen';
 import SettingScreen from 'features/settings/screen';
 
@@ -13,7 +15,28 @@ import { translate } from 'localization/hooks';
 
 import styles from './styles';
 
+export enum MainStackScreens {
+  'Home' = 'Home',
+  'Products' = 'Products',
+  'Cart' = 'Cart',
+  'Favorites' = 'Favorites',
+  'Settings' = 'Settings',
+  'Detail' = 'Detail',
+}
+
+export type MainStackParamList = {
+  [MainStackScreens.Home]: undefined;
+  [MainStackScreens.Settings]: undefined;
+  [MainStackScreens.Products]: undefined;
+  [MainStackScreens.Cart]: undefined;
+  [MainStackScreens.Favorites]: undefined;
+  [MainStackScreens.Detail]: {
+    productId: string;
+  };
+};
+
 const Tab = createMaterialBottomTabNavigator();
+const StackNav = createNativeStackNavigator<MainStackParamList>();
 
 const HomeIcon = ({ color }: { color: string }) => <Icon name="home" color={color} size={26} />;
 const PurchasesIcon = ({ color }: { color: string }) => (
@@ -27,7 +50,7 @@ const FavoritesIcon = ({ color }: { color: string }) => (
 );
 const SettingsIcon = ({ color }: { color: string }) => <Icon name="cog" color={color} size={26} />;
 
-const MainStack = () => {
+function TabsNavigation() {
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -38,12 +61,12 @@ const MainStack = () => {
       inactiveColor="#fff">
       <Tab.Screen
         name={translate('screen.home.title')}
-        component={HomeScreen}
+        component={HomeStack}
         options={{ tabBarIcon: HomeIcon }}
       />
       <Tab.Screen
         name={translate('screen.purchases.title')}
-        component={ProductsScreen}
+        component={ProductStack}
         options={{ tabBarIcon: PurchasesIcon }}
       />
       <Tab.Screen name="Cart" component={CartScreen} options={{ tabBarIcon: CartIcon }} />
@@ -58,6 +81,32 @@ const MainStack = () => {
         options={{ tabBarIcon: SettingsIcon }}
       />
     </Tab.Navigator>
+  );
+}
+
+const ProductStack = () => {
+  return (
+    <StackNav.Navigator screenOptions={{ headerShown: false }}>
+      <StackNav.Screen name={MainStackScreens.Products} component={ProductsScreen} />
+      <StackNav.Screen name={MainStackScreens.Detail} component={DetailScreen} />
+    </StackNav.Navigator>
+  );
+};
+
+const HomeStack = () => {
+  return (
+    <StackNav.Navigator screenOptions={{ headerShown: false }}>
+      <StackNav.Screen name={MainStackScreens.Home} component={HomeScreen} />
+      <StackNav.Screen name={MainStackScreens.Detail} component={DetailScreen} />
+    </StackNav.Navigator>
+  );
+};
+
+const MainStack = () => {
+  return (
+    <StackNav.Navigator screenOptions={{ headerShown: false }}>
+      <StackNav.Screen name={MainStackScreens.Home} component={TabsNavigation} />
+    </StackNav.Navigator>
   );
 };
 

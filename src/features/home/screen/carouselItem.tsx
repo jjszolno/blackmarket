@@ -1,12 +1,15 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 
 import { Product } from 'network/models/product-models';
 
-const CarouselItem: React.FunctionComponent<{ item: Product }> = ({ item }) => {
+const CarouselItem: React.FunctionComponent<{
+  item: Product;
+  onItemPress: () => void;
+}> = ({ item, onItemPress }) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity onPress={onItemPress} style={styles.container}>
       <Image source={{ uri: item.pictures ? item.pictures[0] : '' }} style={styles.image} />
       <View style={styles.divider} />
       <View style={styles.data}>
@@ -15,7 +18,7 @@ const CarouselItem: React.FunctionComponent<{ item: Product }> = ({ item }) => {
         <Text style={styles.name}>{item.title}</Text>
         <Icon name="heart-outlined" size={25} color="#000000" style={styles.like} />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

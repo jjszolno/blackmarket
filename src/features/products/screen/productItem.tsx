@@ -4,12 +4,17 @@ import Icon from 'react-native-vector-icons/Entypo';
 
 import { Product } from 'network/models/product-models';
 
-const ProductItem: React.FunctionComponent<{ item: Product; isLast: boolean }> = ({
-  item,
-  isLast,
-}) => {
+const ProductItem: React.FunctionComponent<{
+  item: Product;
+  isLast: boolean;
+  onItemPress: () => void;
+  onLikePress: () => void;
+  onBuyPress: () => void;
+}> = ({ item, isLast, onItemPress, onLikePress, onBuyPress }) => {
   return (
-    <View style={isLast ? styles.containerLast : styles.container}>
+    <TouchableOpacity
+      style={isLast ? styles.containerLast : styles.container}
+      onPress={() => onItemPress()}>
       <Image source={{ uri: item.pictures ? item.pictures[0] : '' }} style={styles.image} />
       <View style={styles.data}>
         <Text style={styles.name}>{item.title}</Text>
@@ -17,14 +22,14 @@ const ProductItem: React.FunctionComponent<{ item: Product; isLast: boolean }> =
           {item.state}
         </Text>
         <Text style={styles.price}>{item.unitPrice}</Text>
-        <TouchableOpacity style={styles.likeButton}>
+        <TouchableOpacity style={styles.likeButton} onPress={() => onLikePress()}>
           <Icon name="heart-outlined" size={24} color="#000000" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buyButton}>
+        <TouchableOpacity style={styles.buyButton} onPress={() => onBuyPress()}>
           <Text style={styles.buyText}>Add to cart</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

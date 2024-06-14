@@ -3,7 +3,11 @@ import { FlatList, Image, ScrollView, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import IconAwesome from 'react-native-vector-icons/FontAwesome';
 
+import { useNavigation } from '@react-navigation/native';
+
 import { translate } from 'localization/hooks';
+
+import { MainStackScreens } from 'navigation/stacks/main';
 
 import { useGetProducts } from 'network/queries/product-queries';
 
@@ -15,8 +19,8 @@ const fedexImage = require('assets/home/fedex.jpeg');
 
 const HomeScreen: React.FunctionComponent = () => {
   const styles = useStyles();
-
   const { data } = useGetProducts();
+  const { navigate } = useNavigation();
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
@@ -28,7 +32,12 @@ const HomeScreen: React.FunctionComponent = () => {
           data={data?.data}
           keyExtractor={product => product.id}
           renderItem={({ item }) => {
-            return CarouselItem({ item });
+            return CarouselItem({
+              item,
+              onItemPress: () => {
+                navigate(MainStackScreens.Detail, { productId: item.id });
+              },
+            });
           }}
         />
 

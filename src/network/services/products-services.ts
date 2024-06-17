@@ -1,9 +1,13 @@
 import client from '../client';
-import { ProductsResponse } from '../models/product-models';
+import { Product, ProductsResponse } from '../models/product-models';
 
 const ProductsService = {
   getProducts: async () => {
     const { data } = await client.get<ProductsResponse>('/products');
+    return data;
+  },
+  getProductById: async (id: string) => {
+    const { data } = await client.get<Product>(`/products/${id}`);
     return data;
   },
 };

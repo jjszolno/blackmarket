@@ -1998,6 +1998,11 @@
   resolved "https://registry.yarnpkg.com/@react-native-firebase/remote-config/-/remote-config-19.3.0.tgz#c151d555dc03348049cb33abd6cf9cf741a8e2cc"
   integrity sha512-CB3FScM2jZY+niCT8qR45Ypw9sbBud1Lt800ehf+H0rg9tGA7kpTo4CUSMP/0bY6aMjLuSJ+xzXEKtocYW9dDg==
 
+"@react-native-picker/picker@^2.7.7":
+  version "2.7.7"
+  resolved "https://registry.yarnpkg.com/@react-native-picker/picker/-/picker-2.7.7.tgz#6e19c3a72a482be015f5194794e6c14efe8762e8"
+  integrity sha512-CTHthVmx8ujlH/u5AnxLQfsheh/DoEbo+Kbx0HGTlbKVLC1eZ4Kr9jXIIUcwB7JEgOXifdZIPQCsoTc/7GQ0ag==
+
 "@react-native/assets-registry@0.73.1":
   version "0.73.1"
   resolved "https://registry.yarnpkg.com/@react-native/assets-registry/-/assets-registry-0.73.1.tgz#e2a6b73b16c183a270f338dc69c36039b3946e85"
@@ -7362,6 +7367,13 @@ react-native-device-info@^10.13.2:
   version "10.14.0"
   resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-10.14.0.tgz#3530ea7e09a0841d568fec987b8c6ae16deee763"
   integrity sha512-9NnTGfhEU4UgQtz4p6COk2Gbqly0dpSWrJtp+dw5rNAi96KtYbaNnO5yoOHDlJ1SVIzh8+hFu3WxVbnWkFU9gA==
+
+react-native-element-dropdown@^2.12.0:
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/react-native-element-dropdown/-/react-native-element-dropdown-2.12.0.tgz#6d1f47384fe3924a435d482449d430b53bc4cd4c"
+  integrity sha512-Zi9a4vGPztXVdvogg5c2a7xLZDB30YqsXH5EqbeHw6WAnoj5dkj4o/HjfZtxu2DHuT/ipBXDBo5gLG0gDMm5Nw==
+  dependencies:
+    lodash "^4.17.21"
 
 react-native-flipper@^0.212.0:
   version "0.212.0"

@@ -6,7 +6,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import CartScreen from 'features/cart/screen';
 import FavoritesScreen from 'features/favorites/screen';
 import HomeScreen from 'features/home/screen';
-import PurchasesScreen from 'features/purchases/screen';
+import ProductsScreen from 'features/products/screen';
 import SettingScreen from 'features/settings/screen';
 
 import { translate } from 'localization/hooks';
@@ -43,7 +43,7 @@ const MainStack = () => {
       />
       <Tab.Screen
         name={translate('screen.purchases.title')}
-        component={PurchasesScreen}
+        component={ProductsScreen}
         options={{ tabBarIcon: PurchasesIcon }}
       />
       <Tab.Screen name="Cart" component={CartScreen} options={{ tabBarIcon: CartIcon }} />

@@ -3,10 +3,10 @@ import { Product, ProductsResponse } from '../models/product-models';
 
 const ProductsService = {
   getProducts: async () => {
-    const { data } = await client.get<ProductsResponse>('/products');
-    return data;
+    const { data: products } = await client.get<ProductsResponse>('/products');
+    return products;
   },
-  getProductById: async (id: string) => {
+  getProductById: async (id: number) => {
     const { data } = await client.get<Product>(`/products/${id}`);
     return data;
   },

@@ -19,7 +19,7 @@ const fedexImage = require('assets/home/fedex.jpeg');
 
 const HomeScreen: React.FunctionComponent = () => {
   const styles = useStyles();
-  const { data } = useGetProducts();
+  const { data: products } = useGetProducts();
   const { navigate } = useNavigation();
 
   return (
@@ -29,8 +29,8 @@ const HomeScreen: React.FunctionComponent = () => {
           horizontal
           scrollEnabled
           showsHorizontalScrollIndicator={false}
-          data={data?.data}
-          keyExtractor={product => product.id}
+          data={products?.data}
+          keyExtractor={product => product.id.toString()}
           renderItem={({ item }) => {
             return CarouselItem({
               item,

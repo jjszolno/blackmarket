@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 
+import { Picker } from '@react-native-picker/picker';
+
+import { LineItemParams } from 'network/models/product-models';
+import { useAddProductToCart } from 'network/queries/cart-queries';
 import { useGetProductById } from 'network/queries/product-queries';
 
-import QuantitySelector from './selector';
 import useStyles from './styles';
 import { DetailNavigationProps } from './types';
 
@@ -19,6 +22,26 @@ const DetailScreen = ({
     product.data?.pictures?.[0] || null,
   );
   const [pictures, setPictures] = useState<string[]>(product.data?.pictures || []);
+  const [quantity, setQuantity] = useState(1);
+
+  const { mutate: addProductToCart } = useAddProductToCart({
+    onError: error => {
+      console.log('AddProductToCart: ', error);
+    },
+    onSuccess: () => {
+      //TODO update UI??
+    },
+  });
+
+  const onAddToCartPress = (id: number) => {
+    const lineItemParams: LineItemParams = {
+      line_item: {
+        product_id: id,
+        quantity,
+      },
+    };
+    addProductToCart(lineItemParams);
+  };
 
   useEffect(() => {
     if (product.data?.pictures) {
@@ -69,12 +92,18 @@ const DetailScreen = ({
           <View style={styles.quantityContainer}>
             <Text style={styles.quantityLabel}>Quantity</Text>
             <View style={styles.quantitySelector}>
-              <QuantitySelector />
+              <Picker selectedValue={quantity} onValueChange={setQuantity}>
+                {Array.from({ length: 10 }, (_, index) => (
+                  <Picker.Item key={index + 1} label={`${index + 1}`} value={`${index + 1}`} />
+                ))}
+              </Picker>
             </View>
           </View>
           <View style={styles.availabilityContainer}>
             <Text style={styles.availabilityLabel}>Availability: {product.data?.stock} items</Text>
-            <TouchableOpacity style={styles.addToCartButton}>
+            <TouchableOpacity
+              style={styles.addToCartButton}
+              onPress={() => onAddToCartPress(productId)}>
               <Text style={styles.addToCartButtonText}>Add to Cart</Text>
             </TouchableOpacity>
           </View>

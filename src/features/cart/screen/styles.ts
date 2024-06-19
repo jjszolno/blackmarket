@@ -1,4 +1,3 @@
-import { title } from 'process';
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({

@@ -41,8 +41,9 @@ export default () => {
       response.data = humps.camelizeKeys(data);
       return response;
     },
-    error =>
+    error => {
       // TODO: include additional interceptors here (IE: logout)
-      Promise.reject(error),
+      return Promise.reject(error);
+    },
   );
 };

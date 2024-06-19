@@ -31,7 +31,7 @@ export type MainStackParamList = {
   [MainStackScreens.Cart]: undefined;
   [MainStackScreens.Favorites]: undefined;
   [MainStackScreens.Detail]: {
-    productId: string;
+    productId: number;
   };
 };
 

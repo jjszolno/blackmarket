@@ -42,6 +42,7 @@ export default () => {
       return response;
     },
     error => {
+      console.log('error', error.response.data);
       // TODO: include additional interceptors here (IE: logout)
       return Promise.reject(error);
     },

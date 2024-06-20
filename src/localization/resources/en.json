@@ -71,6 +71,30 @@
     "favorites": {
       "title": "Favorites",
       "empty": "Your favorites are empty"
+    },
+    "checkout": {
+      "title": "Please add your shipping address",
+      "city": "City *",
+      "country": "Country *",
+      "address1": "Address line 1 *",
+      "address2": "Address line 2",
+      "postal": "Postal code *",
+      "state": "State *",
+      "paymentDetails": "Payment Information",
+      "cardNumber": "Card Number *",
+      "expirationDate": "Expiration Date *",
+      "month": "Month",
+      "year": "Year",
+      "cvcCode": "CVC Code *",
+      "cvc": "CVC",
+      "sameAddress": "Use my shipping address as my billing address",
+      "placeOrder": "Buy",
+      "cancel": "Cancel",
+      "errorInvalidPayment": "Invalid payment details",
+      "hintAddress": "Type your shipping address",
+      "hintCardNumber": "Type your card number",
+      "hintExpiryDate": "MM/YY",
+      "errorAPI": "Could not checkout"
     }
   },
   "alert": {

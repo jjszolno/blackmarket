@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, Image, ScrollView, Text, View } from 'react-native';
+import { FlatList, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import IconAwesome from 'react-native-vector-icons/FontAwesome';
 
@@ -40,8 +40,9 @@ const HomeScreen: React.FunctionComponent = () => {
             });
           }}
         />
-
-        <Text style={styles.seeAll}>{translate('screen.home.seeAll')}</Text>
+        <TouchableOpacity onPress={() => navigate(MainStackScreens.Products)}>
+          <Text style={styles.seeAll}>{translate('screen.home.seeAll')}</Text>
+        </TouchableOpacity>
         <View style={styles.furniture}>
           <Image source={furnitureImage} style={styles.image} />
           <View style={styles.divider} />

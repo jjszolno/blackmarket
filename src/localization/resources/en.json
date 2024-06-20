@@ -65,8 +65,8 @@
       "empty": "Your cart is empty"
     },
     "purchases": {
-      "title": "Purchases",
-      "empty": "Your purchases is empty"
+      "title": "My previous purchases",
+      "empty": "Purchases is empty"
     },
     "favorites": {
       "title": "Favorites",

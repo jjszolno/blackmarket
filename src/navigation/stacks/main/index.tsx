@@ -5,6 +5,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import CartScreen from 'features/cart/screen';
+import CheckoutScreen from 'features/checkout/screen';
 import FavoritesScreen from 'features/favorites/screen';
 import HomeScreen from 'features/home/screen';
 import DetailScreen from 'features/productDetail/screen';
@@ -22,6 +23,7 @@ export enum MainStackScreens {
   'Favorites' = 'Favorites',
   'Settings' = 'Settings',
   'Detail' = 'Detail',
+  'Checkout' = 'Checkout',
 }
 
 export type MainStackParamList = {
@@ -33,6 +35,7 @@ export type MainStackParamList = {
   [MainStackScreens.Detail]: {
     productId: number;
   };
+  [MainStackScreens.Checkout]: undefined;
 };
 
 const Tab = createMaterialBottomTabNavigator();
@@ -69,7 +72,7 @@ function TabsNavigation() {
         component={ProductStack}
         options={{ tabBarIcon: PurchasesIcon }}
       />
-      <Tab.Screen name="Cart" component={CartScreen} options={{ tabBarIcon: CartIcon }} />
+      <Tab.Screen name="Cart" component={CartStack} options={{ tabBarIcon: CartIcon }} />
       <Tab.Screen
         name={translate('screen.favorites.title')}
         component={FavoritesScreen}
@@ -98,6 +101,15 @@ const HomeStack = () => {
     <StackNav.Navigator screenOptions={{ headerShown: false }}>
       <StackNav.Screen name={MainStackScreens.Home} component={HomeScreen} />
       <StackNav.Screen name={MainStackScreens.Detail} component={DetailScreen} />
+    </StackNav.Navigator>
+  );
+};
+
+const CartStack = () => {
+  return (
+    <StackNav.Navigator screenOptions={{ headerShown: false }}>
+      <StackNav.Screen name={MainStackScreens.Cart} component={CartScreen} />
+      <StackNav.Screen name={MainStackScreens.Checkout} component={CheckoutScreen} />
     </StackNav.Navigator>
   );
 };

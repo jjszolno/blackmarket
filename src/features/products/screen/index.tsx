@@ -43,7 +43,6 @@ const ProductsScreen: React.FunctionComponent = () => {
           data={products?.data}
           keyExtractor={product => product.id.toString()}
           renderItem={({ item, index }) => {
-            console.log('item', item.id);
             return ProductItem({
               item,
               isLast: index === items - 1,

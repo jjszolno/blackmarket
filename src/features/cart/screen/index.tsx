@@ -1,7 +1,9 @@
 import React from 'react';
 import { FlatList, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+
+import { MainStackScreens } from 'navigation/stacks/main';
 
 import {
   useGetCart,
@@ -13,6 +15,7 @@ import CartItem from './cartItem';
 import styles from './styles';
 
 const CartScreen = () => {
+  const { navigate } = useNavigation();
   const { data: cart, refetch } = useGetCart();
   const { mutate: removeItem } = useRemoveProductFromCart({
     onError: error => {
@@ -79,7 +82,11 @@ const CartScreen = () => {
               <View style={styles.line} />
               <Text style={styles.totalPrice}>{cart?.totalPrice}</Text>
             </View>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                navigate(MainStackScreens.Checkout);
+              }}>
               <Text style={styles.buttonText}>Go to checkout</Text>
             </TouchableOpacity>
           </View>

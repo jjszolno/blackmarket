@@ -46,7 +46,7 @@ export type ShoppingCart = {
 export type LineItem = {
   id: number;
   quantity: number;
-  totalPriceInShoppingCart: string;
+  totalPrice: string;
   product: Product;
 };
 

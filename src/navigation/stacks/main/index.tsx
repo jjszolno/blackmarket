@@ -10,11 +10,13 @@ import FavoritesScreen from 'features/favorites/screen';
 import HomeScreen from 'features/home/screen';
 import DetailScreen from 'features/productDetail/screen';
 import ProductsScreen from 'features/products/screen';
+import PurchasesScreen from 'features/purchases/screen';
 import SettingScreen from 'features/settings/screen';
 
 import { translate } from 'localization/hooks';
 
 import styles from './styles';
+
 
 export enum MainStackScreens {
   'Home' = 'Home',
@@ -24,6 +26,7 @@ export enum MainStackScreens {
   'Settings' = 'Settings',
   'Detail' = 'Detail',
   'Checkout' = 'Checkout',
+  'Purchases' = 'Purchases',
 }
 
 export type MainStackParamList = {
@@ -36,6 +39,7 @@ export type MainStackParamList = {
     productId: number;
   };
   [MainStackScreens.Checkout]: undefined;
+  [MainStackScreens.Purchases]: undefined;
 };
 
 const Tab = createMaterialBottomTabNavigator();
@@ -69,7 +73,7 @@ function TabsNavigation() {
       />
       <Tab.Screen
         name={translate('screen.purchases.title')}
-        component={ProductStack}
+        component={PurchasesScreen}
         options={{ tabBarIcon: PurchasesIcon }}
       />
       <Tab.Screen name="Cart" component={CartStack} options={{ tabBarIcon: CartIcon }} />
@@ -87,19 +91,11 @@ function TabsNavigation() {
   );
 }
 
-const ProductStack = () => {
-  return (
-    <StackNav.Navigator screenOptions={{ headerShown: false }}>
-      <StackNav.Screen name={MainStackScreens.Products} component={ProductsScreen} />
-      <StackNav.Screen name={MainStackScreens.Detail} component={DetailScreen} />
-    </StackNav.Navigator>
-  );
-};
-
 const HomeStack = () => {
   return (
     <StackNav.Navigator screenOptions={{ headerShown: false }}>
       <StackNav.Screen name={MainStackScreens.Home} component={HomeScreen} />
+      <StackNav.Screen name={MainStackScreens.Products} component={ProductsScreen} />
       <StackNav.Screen name={MainStackScreens.Detail} component={DetailScreen} />
     </StackNav.Navigator>
   );

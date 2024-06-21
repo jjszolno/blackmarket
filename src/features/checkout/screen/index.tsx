@@ -161,7 +161,7 @@ const CheckoutScreen: React.FC<CheckoutScreenProps> = props => {
         <Picker
           selectedValue={selectedMonth}
           style={styles.picker}
-          onValueChange={(itemValue) => setSelectedMonth(itemValue)}>
+          onValueChange={itemValue => setSelectedMonth(itemValue)}>
           {months.map(month => (
             <Picker.Item key={month.value} label={month.label} value={month.value} />
           ))}
@@ -171,7 +171,7 @@ const CheckoutScreen: React.FC<CheckoutScreenProps> = props => {
         <Picker
           selectedValue={selectedYear}
           style={styles.picker}
-          onValueChange={(itemValue) => setSelectedYear(itemValue)}>
+          onValueChange={itemValue => setSelectedYear(itemValue)}>
           {years.map(year => (
             <Picker.Item key={year.value} label={year.label} value={year.value} />
           ))}

@@ -1,4 +1,4 @@
-import { LineItem } from './product-models';
+import { LineItem, Pagination } from './product-models';
 
 export type OrderParams = {
   order: {
@@ -19,6 +19,13 @@ export type Order = {
   shipping_address: Address;
 };
 
+export type OrderResponse = {
+  id: number;
+  totalPrice: string;
+  lineItems: LineItem[];
+  shippingAddress: Address;
+};
+
 export type Address = {
   city: string;
   country: string;
@@ -26,4 +33,9 @@ export type Address = {
   line_2: string;
   postal_code: string;
   state: string;
+};
+
+export type OrdersResponse = {
+  data: OrderResponse[];
+  pagination: Pagination;
 };

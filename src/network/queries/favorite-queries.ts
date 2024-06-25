@@ -9,7 +9,7 @@ const useGetFavorites = () => useQuery(['getFavorites'], FavoriteService.getFavo
 const useAddFavorite = ({ onError, onSuccess }: AxiosResult<Favorite>) =>
   useMutation(FavoriteService.addFavorite, { onError, onSuccess });
 
-const useRemoveFavorite = ({ onError, onSuccess }: AxiosResult<Favorite>) =>
+const useRemoveFavorite = ({ onError, onSuccess }: AxiosResult<{ data: void; id: number }>) =>
   useMutation(FavoriteService.removeFavorite, { onError, onSuccess });
 
 export { useGetFavorites, useAddFavorite, useRemoveFavorite };

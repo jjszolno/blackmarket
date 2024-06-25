@@ -1,6 +1,8 @@
 import React from 'react';
 import { FlatList, SafeAreaView, Text, View } from 'react-native';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import { translate } from 'localization/hooks';
 
 import { useGetFavorites, useRemoveFavorite } from 'network/queries/favorite-queries';
@@ -9,14 +11,14 @@ import FavoriteItem from './favoriteItem';
 import styles from './styles';
 
 const FavoritesScreen = () => {
-  const { data, refetch } = useGetFavorites();
-
+  const { data } = useGetFavorites();
+  const queryClient = useQueryClient();
   const { mutate: removeFavorite } = useRemoveFavorite({
     onError: error => {
       console.log('RemoveFavorite: ', error.cause);
     },
     onSuccess: () => {
-      refetch();
+      queryClient.invalidateQueries(['getFavorites']);
     },
   });
 

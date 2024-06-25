@@ -12,7 +12,7 @@ const FavoriteService = {
   },
   removeFavorite: async (id: number) => {
     const { data } = await client.delete<void>(`/favorite_products/${id}`);
-    return { data, productId: id };
+    return { data, id };
   },
 };
 

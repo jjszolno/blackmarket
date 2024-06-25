@@ -38,7 +38,6 @@ const HomeScreen: React.FunctionComponent = () => {
       console.log('AddFavorite: ', error.cause);
     },
     onSuccess: data => {
-      console.log('AddFavorite: success');
       setLikedProducts([...likedProducts, data]);
     },
   });
@@ -53,7 +52,6 @@ const HomeScreen: React.FunctionComponent = () => {
   });
 
   const handleLikePress = (id: number) => {
-    console.log('handleLikePress: ', id);
     const favorite = likedProducts?.find(product => product.product.id === id);
     if (favorite !== undefined) {
       removeFavorite(favorite.id);

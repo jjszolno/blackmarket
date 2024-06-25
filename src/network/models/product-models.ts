@@ -56,3 +56,20 @@ export type LineItemParams = {
     product_id: number | undefined;
   };
 };
+
+export type Favorite = {
+  id: number;
+  product: Product;
+};
+
+export type FavoriteResponse = {
+  data: Favorite[];
+  pagination: Pagination;
+};
+
+export type FavoriteParams = {
+  favorite_products: {
+    product_id: number | undefined;
+    user_id: number | undefined;
+  };
+};

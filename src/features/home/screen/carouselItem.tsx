@@ -6,8 +6,10 @@ import { Product } from 'network/models/product-models';
 
 const CarouselItem: React.FunctionComponent<{
   item: Product;
+  liked: boolean;
   onItemPress: () => void;
-}> = ({ item, onItemPress }) => {
+  onLikePress: () => void;
+}> = ({ item, liked, onItemPress, onLikePress }) => {
   return (
     <TouchableOpacity onPress={onItemPress} style={styles.container}>
       <Image source={{ uri: item.pictures ? item.pictures[0] : '' }} style={styles.image} />
@@ -16,7 +18,16 @@ const CarouselItem: React.FunctionComponent<{
         <Text style={styles.price}>{item.unitPrice}</Text>
         <Text style={styles.status}>{item.state}</Text>
         <Text style={styles.name}>{item.title}</Text>
-        <Icon name="heart-outlined" size={25} color="#000000" style={styles.like} />
+        <TouchableOpacity
+          onPress={() => {
+            onLikePress();
+          }}>
+          {liked ? (
+            <Icon name="heart" size={25} color="#ff0000" style={styles.like} />
+          ) : (
+            <Icon name="heart-outlined" size={25} color="#000000" style={styles.like} />
+          )}
+        </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );

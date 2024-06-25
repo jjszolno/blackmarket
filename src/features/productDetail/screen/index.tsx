@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
+import { authStore } from 'store';
 
 import { Picker } from '@react-native-picker/picker';
 
 import { LineItemParams } from 'network/models/product-models';
 import { useAddProductToCart } from 'network/queries/cart-queries';
+import { useAddFavorite, useRemoveFavorite } from 'network/queries/favorite-queries';
 import { useGetProductById } from 'network/queries/product-queries';
 
 import useStyles from './styles';
@@ -13,7 +15,7 @@ import { DetailNavigationProps } from './types';
 
 const DetailScreen = ({
   route: {
-    params: { productId },
+    params: { productId, favoriteId },
   },
 }: DetailNavigationProps) => {
   const styles = useStyles();
@@ -23,6 +25,8 @@ const DetailScreen = ({
   );
   const [pictures, setPictures] = useState<string[]>(product.data?.pictures || []);
   const [quantity, setQuantity] = useState(1);
+  const [favoriteIdValue, setFavoriteId] = useState<number | undefined>(favoriteId);
+  const { user } = authStore.getState();
 
   const { mutate: addProductToCart } = useAddProductToCart({
     onError: error => {
@@ -41,6 +45,32 @@ const DetailScreen = ({
       },
     };
     addProductToCart(lineItemParams);
+  };
+
+  const { mutate: addFavorite } = useAddFavorite({
+    onError: error => {
+      console.log('AddFavorite: ', error.cause);
+    },
+    onSuccess: data => {
+      setFavoriteId(data.id);
+    },
+  });
+
+  const { mutate: removeFavorite } = useRemoveFavorite({
+    onError: error => {
+      console.log('RemoveFavorite: ', error.cause);
+    },
+    onSuccess: () => {
+      setFavoriteId(undefined);
+    },
+  });
+
+  const handleLikePress = () => {
+    if (favoriteIdValue) {
+      removeFavorite(favoriteIdValue);
+    } else {
+      addFavorite({ favorite_products: { product_id: productId, user_id: user?.id } });
+    }
   };
 
   useEffect(() => {
@@ -74,7 +104,13 @@ const DetailScreen = ({
               style={styles.selectedImage}
               resizeMode="contain"
             />
-            <Icon name="heart-outlined" color="#fff" size={26} style={styles.like} />
+            <TouchableOpacity style={styles.like} onPress={() => handleLikePress()}>
+              {favoriteIdValue ? (
+                <Icon name="heart" size={25} color="#ff0000" />
+              ) : (
+                <Icon name="heart-outlined" size={25} color="#fff" />
+              )}
+            </TouchableOpacity>
           </View>
         )}
 

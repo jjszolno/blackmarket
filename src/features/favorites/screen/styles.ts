@@ -8,8 +8,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
     color: 'black',
+    alignSelf: 'flex-start',
+    marginBottom: 20,
+  },
+  flexContainer: {
+    padding: 20,
+    width: '100%',
+    flex: 1,
   },
 });
 

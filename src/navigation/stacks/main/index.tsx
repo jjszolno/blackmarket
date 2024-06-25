@@ -17,7 +17,6 @@ import { translate } from 'localization/hooks';
 
 import styles from './styles';
 
-
 export enum MainStackScreens {
   'Home' = 'Home',
   'Products' = 'Products',
@@ -37,6 +36,7 @@ export type MainStackParamList = {
   [MainStackScreens.Favorites]: undefined;
   [MainStackScreens.Detail]: {
     productId: number;
+    favoriteId: number | undefined;
   };
   [MainStackScreens.Checkout]: undefined;
   [MainStackScreens.Purchases]: undefined;

@@ -7,10 +7,11 @@ import { Product } from 'network/models/product-models';
 const ProductItem: React.FunctionComponent<{
   item: Product;
   isLast: boolean;
+  liked: boolean;
   onItemPress: () => void;
   onLikePress: () => void;
   onBuyPress: () => void;
-}> = ({ item, isLast, onItemPress, onLikePress, onBuyPress }) => {
+}> = ({ item, isLast, liked, onItemPress, onLikePress, onBuyPress }) => {
   return (
     <TouchableOpacity
       style={isLast ? styles.containerLast : styles.container}
@@ -23,7 +24,12 @@ const ProductItem: React.FunctionComponent<{
         </Text>
         <Text style={styles.price}>{item.unitPrice}</Text>
         <TouchableOpacity style={styles.likeButton} onPress={() => onLikePress()}>
-          <Icon name="heart-outlined" size={24} color="#000000" />
+          {liked ? (
+            <Icon name="heart" size={24} color="#ff0000" />
+          ) : (
+            <Icon name="heart-outlined" size={24} color="#000000" />
+          )}
+          {/* <Icon name="heart-outlined" size={24} color="#000000" /> */}
         </TouchableOpacity>
         <TouchableOpacity style={styles.buyButton} onPress={() => onBuyPress()}>
           <Text style={styles.buyText}>Add to cart</Text>

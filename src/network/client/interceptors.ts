@@ -28,14 +28,17 @@ export default () => {
     async response => {
       const { data, headers } = response;
       const token = headers[AUTHORIZATION];
+      const { user } = authStore.getState();
+      const userId = data?.data?.id || user?.id;
 
       if (token) {
         // TODO: save extra params to storage
-        const user = {
+        const userData = {
           token,
+          id: userId,
         };
 
-        setUser(user);
+        setUser(userData);
       }
 
       response.data = humps.camelizeKeys(data);

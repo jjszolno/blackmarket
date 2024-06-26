@@ -154,7 +154,7 @@
       "<rootDir>/jest-setup.js"
     ],
     "transformIgnorePatterns": [
-      "node_modules/(?!(jest-)?(@react-native|react-native)|react-(native|universal|navigation)-(.*)|@react-native-community/(.*)|@react-navigation/(.*)|bs-platform)"
+      "node_modules/(?!(jest-)?(@react-native|react-native)|react-(native|universal|navigation)-(.*)|@react-native-community/(.*)|@react-navigation/(.*)|bs-platform|@rneui)"
     ],
     "transform": {
       "^.+\\.jsx?$": "babel-jest"

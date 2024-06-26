@@ -45,7 +45,12 @@ export default () => {
       return response;
     },
     error => {
-      console.log('error', error.response.data);
+      if (error.response) {
+        if (error.response.status === 401) {
+          authStore.getState().clearUser();
+        }
+      }
+
       // TODO: include additional interceptors here (IE: logout)
       return Promise.reject(error);
     },

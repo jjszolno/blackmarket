@@ -1,6 +1,11 @@
 {
   "greeting": "Hello {{name}}!",
   "language": "English",
+  "search": {
+    "searchPlaceholder": "Search",
+    "searchResultsTitle": "Search results for \"{{search}}\"",
+    "clearSearch": "Clear all"
+  },
   "screen": {
     "welcome": {
       "signIn": "Sign In",

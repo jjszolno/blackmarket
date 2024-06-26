@@ -3,15 +3,17 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: 20,
     backgroundColor: '#efefef',
   },
   flexContainer: {
     padding: 20,
     width: '100%',
     flex: 1,
+  },
+  searchBarContainer: {
+    width: '100%',
+    backgroundColor: '#f5f5f5',
+    paddingHorizontal: 16,
   },
   flatListContainer: {
     alignSelf: 'center',

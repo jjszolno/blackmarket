@@ -2,8 +2,11 @@ import client from '../client';
 import { Product, ProductsResponse } from '../models/product-models';
 
 const ProductsService = {
-  getProducts: async () => {
-    const { data: products } = await client.get<ProductsResponse>('/products');
+  getProducts: async (text?: string) => {
+    const queryParams = text ? { text } : {};
+    const { data: products } = await client.get<ProductsResponse>('/products', {
+      params: queryParams,
+    });
     return products;
   },
   getProductById: async (id: number) => {

@@ -8,10 +8,10 @@ const useStyles = () => {
   return StyleSheet.create({
     container: {
       flex: 1,
-      paddingTop: 20,
       backgroundColor: '#efefef',
     },
     flexContainer: {
+      flex: 1,
       flexDirection: 'column',
       marginBottom: 20,
     },
@@ -19,6 +19,7 @@ const useStyles = () => {
       fontSize: 20,
       fontWeight: 'bold',
       color: colors.text,
+      padding: 10,
     },
     button: {
       marginTop: 10,
@@ -171,6 +172,10 @@ const useStyles = () => {
     },
     fedex: {
       color: '#00cc00',
+    },
+    searchBarContainer: {
+      backgroundColor: '#f5f5f5',
+      paddingHorizontal: 16,
     },
   });
 };

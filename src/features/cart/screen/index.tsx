@@ -1,7 +1,11 @@
-import React from 'react';
+import { debounce } from 'lodash';
+import React, { useCallback, useState } from 'react';
 import { FlatList, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { SearchBar } from '@rneui/themed';
+
+import SearchComponent from 'common/searchComponent';
 
 import { MainStackScreens } from 'navigation/stacks/main';
 
@@ -10,12 +14,15 @@ import {
   useRemoveProductFromCart,
   useUpdateProductQuantity,
 } from 'network/queries/cart-queries';
+import { useGetProducts } from 'network/queries/product-queries';
 
 import CartItem from './cartItem';
 import styles from './styles';
 
 const CartScreen = () => {
   const { navigate } = useNavigation();
+  const [search, setSearch] = useState('');
+  const { data: products } = useGetProducts(search);
   const { data: cart, refetch } = useGetCart();
   const { mutate: removeItem } = useRemoveProductFromCart({
     onError: error => {
@@ -47,9 +54,32 @@ const CartScreen = () => {
     }, [refetch]),
   );
 
+  const handleSearch = (text: React.SetStateAction<string>) => {
+    setSearch(text);
+    updateSearch();
+  };
+
+  const updateSearch = useCallback(() => {
+    debounce(() => setSearch(search), 800);
+  }, [search]);
+
   return (
     <SafeAreaView style={styles.container}>
-      {cart?.lineItems?.length ? (
+      <SearchBar
+        placeholder="Search for products"
+        lightTheme
+        onChangeText={text => handleSearch(text)}
+        value={search}
+        containerStyle={styles.searchBarContainer}
+      />
+      {products && products.data.length !== 0 && search.length > 0 ? (
+        <SearchComponent
+          search={search}
+          products={products.data}
+          likedProducts={[]}
+          onClearAllPress={() => handleSearch('')}
+        />
+      ) : cart?.lineItems?.length ? (
         <View style={styles.flexContainer}>
           <View style={styles.horizontalContainer}>
             <Text style={styles.cart}>My shopping cart</Text>

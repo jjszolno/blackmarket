@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { debounce } from 'lodash';
+import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, SafeAreaView, View } from 'react-native';
 import { authStore } from 'store';
 
 import { useNavigation } from '@react-navigation/native';
+import { SearchBar } from '@rneui/themed';
+
+import SearchComponent from 'common/searchComponent';
 
 import { MainStackScreens } from 'navigation/stacks/main';
 
@@ -20,7 +24,8 @@ import ProductItem from './productItem';
 import styles from './styles';
 
 const ProductsScreen: React.FunctionComponent = () => {
-  const { data: products } = useGetProducts();
+  const [search, setSearch] = useState('');
+  const { data: products } = useGetProducts(search);
   const items = products?.data?.length || 0;
   const { navigate } = useNavigation();
   const { user } = authStore.getState();
@@ -49,7 +54,6 @@ const ProductsScreen: React.FunctionComponent = () => {
       console.log('AddFavorite: ', error.cause);
     },
     onSuccess: data => {
-      console.log('AddFavorite: success');
       setLikedProducts([...likedProducts, data]);
     },
   });
@@ -63,8 +67,16 @@ const ProductsScreen: React.FunctionComponent = () => {
     },
   });
 
+  const handleSearch = (text: React.SetStateAction<string>) => {
+    setSearch(text);
+    updateSearch();
+  };
+
+  const updateSearch = useCallback(() => {
+    debounce(() => setSearch(search), 800);
+  }, [search]);
+
   const handleLikePress = (id: number) => {
-    console.log('handleLikePress: ', id);
     const favorite = likedProducts?.find(product => product.product.id === id);
     if (favorite !== undefined) {
       removeFavorite(favorite.id);
@@ -87,31 +99,50 @@ const ProductsScreen: React.FunctionComponent = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.flexContainer}>
-        <FlatList
-          scrollEnabled
-          showsHorizontalScrollIndicator={false}
-          data={products?.data}
-          keyExtractor={product => product.id.toString()}
-          renderItem={({ item, index }) => {
-            return ProductItem({
-              item,
-              liked: likedProducts.find(product => product.product.id === item.id) !== undefined,
-              isLast: index === items - 1,
-              onItemPress: () => {
-                const favorite = likedProducts?.find(product => product.product.id === item.id);
-                navigate(MainStackScreens.Detail, { productId: item.id, favoriteId: favorite?.id });
-              },
-              onLikePress: () => {
-                handleLikePress(item.id);
-              },
-              onBuyPress: () => {
-                onAddToCartPress(item.id, 1);
-              },
-            });
-          }}
+      <SearchBar
+        placeholder="Search for products"
+        lightTheme
+        onChangeText={text => handleSearch(text)}
+        value={search}
+        containerStyle={styles.searchBarContainer}
+      />
+      {products && products.data.length !== 0 && search.length > 0 ? (
+        <SearchComponent
+          search={search}
+          products={products.data}
+          likedProducts={likedProducts}
+          onClearAllPress={() => handleSearch('')}
         />
-      </View>
+      ) : (
+        <View style={styles.flexContainer}>
+          <FlatList
+            scrollEnabled
+            showsHorizontalScrollIndicator={false}
+            data={products?.data}
+            keyExtractor={product => product.id.toString()}
+            renderItem={({ item, index }) => {
+              return ProductItem({
+                item,
+                liked: likedProducts.find(product => product.product.id === item.id) !== undefined,
+                isLast: index === items - 1,
+                onItemPress: () => {
+                  const favorite = likedProducts?.find(product => product.product.id === item.id);
+                  navigate(MainStackScreens.Detail, {
+                    productId: item.id,
+                    favoriteId: favorite?.id,
+                  });
+                },
+                onLikePress: () => {
+                  handleLikePress(item.id);
+                },
+                onBuyPress: () => {
+                  onAddToCartPress(item.id, 1);
+                },
+              });
+            }}
+          />
+        </View>
+      )}
     </SafeAreaView>
   );
 };

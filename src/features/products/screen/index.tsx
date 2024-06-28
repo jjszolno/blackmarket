@@ -1,12 +1,15 @@
 import { debounce } from 'lodash';
 import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, SafeAreaView, View } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
 import { authStore } from 'store';
 
 import { useNavigation } from '@react-navigation/native';
 import { SearchBar } from '@rneui/themed';
 
 import SearchComponent from 'common/searchComponent';
+
+import { translate } from 'localization/hooks';
 
 import { MainStackScreens } from 'navigation/stacks/main';
 
@@ -34,9 +37,11 @@ const ProductsScreen: React.FunctionComponent = () => {
 
   const { mutate: addProductToCart } = useAddProductToCart({
     onError: error => {
-      console.log('error: ', error);
+      showMessage({ message: error.cause?.message || error.message, type: 'danger' });
     },
-    onSuccess: () => {},
+    onSuccess: () => {
+      showMessage({ message: translate('alert.addedToCart'), type: 'success' });
+    },
   });
 
   const onAddToCartPress = (product_id: number, quantity: number) => {
@@ -51,7 +56,7 @@ const ProductsScreen: React.FunctionComponent = () => {
 
   const { mutate: addFavorite } = useAddFavorite({
     onError: error => {
-      console.log('AddFavorite: ', error.cause);
+      showMessage({ message: error.cause?.message || error.message, type: 'danger' });
     },
     onSuccess: data => {
       setLikedProducts([...likedProducts, data]);
@@ -60,7 +65,7 @@ const ProductsScreen: React.FunctionComponent = () => {
 
   const { mutate: removeFavorite } = useRemoveFavorite({
     onError: error => {
-      console.log('RemoveFavorite: ', error.cause);
+      showMessage({ message: error.cause?.message || error.message, type: 'danger' });
     },
     onSuccess: () => {
       refetch();

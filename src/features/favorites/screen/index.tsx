@@ -1,5 +1,6 @@
 import React from 'react';
 import { FlatList, SafeAreaView, Text, View } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
 
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -15,7 +16,7 @@ const FavoritesScreen = () => {
   const queryClient = useQueryClient();
   const { mutate: removeFavorite } = useRemoveFavorite({
     onError: error => {
-      console.log('RemoveFavorite: ', error.cause);
+      showMessage({ message: error.cause?.message || error.message, type: 'danger' });
     },
     onSuccess: () => {
       queryClient.invalidateQueries(['getFavorites']);

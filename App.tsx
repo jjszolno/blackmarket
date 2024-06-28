@@ -1,6 +1,7 @@
 import 'localization';
 import React, { useState } from 'react';
 import { StatusBar } from 'react-native';
+import FlashMessage from 'react-native-flash-message';
 
 import { NavigationContainer, useTheme } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -29,6 +30,7 @@ const App: () => React.JSX.Element = () => {
       <NavigationContainer theme={theme}>
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
         <NavigationStack />
+        <FlashMessage position="top" />
       </NavigationContainer>
     </QueryClientProvider>
   );

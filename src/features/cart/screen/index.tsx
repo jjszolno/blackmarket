@@ -1,6 +1,7 @@
 import { debounce } from 'lodash';
 import React, { useCallback, useState } from 'react';
 import { FlatList, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
 
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { SearchBar } from '@rneui/themed';
@@ -26,7 +27,7 @@ const CartScreen = () => {
   const { data: cart, refetch } = useGetCart();
   const { mutate: removeItem } = useRemoveProductFromCart({
     onError: error => {
-      console.log('error: ', error);
+      showMessage({ message: error.message, type: 'danger' });
     },
     onSuccess: () => {
       refetch();
@@ -34,7 +35,7 @@ const CartScreen = () => {
   });
   const { mutate: updateProductQuantity } = useUpdateProductQuantity({
     onError: error => {
-      console.log('error: ', error);
+      showMessage({ message: error.message, type: 'danger' });
     },
     onSuccess: () => {
       refetch();

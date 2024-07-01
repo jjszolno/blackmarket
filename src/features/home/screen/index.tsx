@@ -1,6 +1,7 @@
 import { debounce } from 'lodash';
 import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
 import Icon from 'react-native-vector-icons/AntDesign';
 import IconAwesome from 'react-native-vector-icons/FontAwesome';
 import { authStore } from 'store';
@@ -38,7 +39,7 @@ const HomeScreen: React.FunctionComponent = () => {
   const [likedProducts, setLikedProducts] = useState<Favorite[]>([]);
   const { mutate: addFavorite } = useAddFavorite({
     onError: error => {
-      console.log('AddFavorite: ', error.cause);
+      showMessage({ message: error.cause?.message || error.message, type: 'danger' });
     },
     onSuccess: data => {
       setLikedProducts([...likedProducts, data]);
@@ -47,7 +48,7 @@ const HomeScreen: React.FunctionComponent = () => {
 
   const { mutate: removeFavorite } = useRemoveFavorite({
     onError: error => {
-      console.log('RemoveFavorite: ', error.cause);
+      showMessage({ message: error.cause?.message || error.message, type: 'danger' });
     },
     onSuccess: () => {
       refetch();

@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
 import Icon from 'react-native-vector-icons/Entypo';
 import { authStore } from 'store';
 
 import { Picker } from '@react-native-picker/picker';
+
+import { translate } from 'localization/hooks';
 
 import { LineItemParams } from 'network/models/product-models';
 import { useAddProductToCart } from 'network/queries/cart-queries';
@@ -30,10 +33,10 @@ const DetailScreen = ({
 
   const { mutate: addProductToCart } = useAddProductToCart({
     onError: error => {
-      console.log('AddProductToCart: ', error);
+      showMessage({ message: error.cause?.message || error.message, type: 'danger' });
     },
     onSuccess: () => {
-      //TODO update UI??
+      showMessage({ message: translate('alert.addedToCart'), type: 'success' });
     },
   });
 
@@ -49,7 +52,7 @@ const DetailScreen = ({
 
   const { mutate: addFavorite } = useAddFavorite({
     onError: error => {
-      console.log('AddFavorite: ', error.cause);
+      showMessage({ message: error.cause?.message || error.message, type: 'danger' });
     },
     onSuccess: data => {
       setFavoriteId(data.id);
@@ -58,7 +61,7 @@ const DetailScreen = ({
 
   const { mutate: removeFavorite } = useRemoveFavorite({
     onError: error => {
-      console.log('RemoveFavorite: ', error.cause);
+      showMessage({ message: error.cause?.message || error.message, type: 'danger' });
     },
     onSuccess: () => {
       setFavoriteId(undefined);

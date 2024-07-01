@@ -2,6 +2,8 @@ import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
+import { translate } from 'localization/hooks';
+
 import { LineItem } from 'network/models/product-models';
 
 const CartItem: React.FunctionComponent<{
@@ -22,7 +24,7 @@ const CartItem: React.FunctionComponent<{
           {item.product.state}
         </Text>
         <TouchableOpacity style={styles.deleteButton} onPress={onDeletePress}>
-          <Text style={styles.deleteText}>Remove</Text>
+          <Text style={styles.deleteText}>{translate('screen.cart.remove')}</Text>
         </TouchableOpacity>
         <Text style={styles.price}>{item.product.unitPrice}</Text>
         <View style={styles.controlsContainer}>

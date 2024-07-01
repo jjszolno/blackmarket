@@ -1,6 +1,8 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+import { translate } from 'localization/hooks';
+
 import { Favorite } from 'network/models/product-models';
 
 const FavoriteItem: React.FunctionComponent<{
@@ -27,7 +29,7 @@ const FavoriteItem: React.FunctionComponent<{
         </Text>
         <Text style={styles.price}>{item.product.unitPrice}</Text>
         <TouchableOpacity style={styles.deleteButton} onPress={() => onRemovePress()}>
-          <Text style={styles.deleteText}>Remove</Text>
+          <Text style={styles.deleteText}>{translate('screen.favorites.remove')}</Text>
         </TouchableOpacity>
       </View>
     </View>

@@ -3,6 +3,8 @@ import { FlatList, SafeAreaView, Text, TouchableOpacity, View } from 'react-nati
 
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
+import { translate } from 'localization/hooks';
+
 import { MainStackScreens } from 'navigation/stacks/main';
 
 import {
@@ -52,9 +54,9 @@ const CartScreen = () => {
       {cart?.lineItems?.length ? (
         <View style={styles.flexContainer}>
           <View style={styles.horizontalContainer}>
-            <Text style={styles.cart}>My shopping cart</Text>
+            <Text style={styles.cart}>{translate('screen.cart.shoppingCart')}</Text>
             <TouchableOpacity onPress={() => clearCart()}>
-              <Text style={styles.clear}>Clear All</Text>
+              <Text style={styles.clear}>{translate('screen.cart.clearAll')}</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.flatListContainer}>
@@ -78,7 +80,7 @@ const CartScreen = () => {
           </View>
           <View style={styles.horizontalContainer}>
             <View style={styles.totalContainer}>
-              <Text style={styles.total}>TOTAL</Text>
+              <Text style={styles.total}>{translate('screen.cart.total')}</Text>
               <View style={styles.line} />
               <Text style={styles.totalPrice}>{cart?.totalPrice}</Text>
             </View>
@@ -87,13 +89,13 @@ const CartScreen = () => {
               onPress={() => {
                 navigate(MainStackScreens.Checkout);
               }}>
-              <Text style={styles.buttonText}>Go to checkout</Text>
+              <Text style={styles.buttonText}>{translate('screen.cart.checkout')}</Text>
             </TouchableOpacity>
           </View>
         </View>
       ) : (
         <View style={styles.flexContainer}>
-          <Text style={styles.empty}>No items in cart</Text>
+          <Text style={styles.empty}>{translate('screen.cart.noItems')}</Text>
         </View>
       )}
     </SafeAreaView>

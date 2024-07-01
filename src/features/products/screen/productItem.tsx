@@ -2,6 +2,8 @@ import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 
+import { translate } from 'localization/hooks';
+
 import { Product } from 'network/models/product-models';
 
 const ProductItem: React.FunctionComponent<{
@@ -32,7 +34,7 @@ const ProductItem: React.FunctionComponent<{
           {/* <Icon name="heart-outlined" size={24} color="#000000" /> */}
         </TouchableOpacity>
         <TouchableOpacity style={styles.buyButton} onPress={() => onBuyPress()}>
-          <Text style={styles.buyText}>Add to cart</Text>
+          <Text style={styles.buyText}>{translate('screen.product.addToCart')}</Text>
         </TouchableOpacity>
       </View>
     </TouchableOpacity>

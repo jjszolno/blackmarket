@@ -9,8 +9,7 @@ import OrderItem from './orderItem';
 import styles from './styles';
 
 const PurchasesScreen: React.FunctionComponent = () => {
-  const { data } = useGetOrders();
-  const orders = data?.data || [];
+  const { data: { data: orders = [] } = {} } = useGetOrders();
 
   const sections =
     orders.length > 0

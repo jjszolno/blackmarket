@@ -24,8 +24,8 @@ import styles from './styles';
 
 const ProductsScreen: React.FunctionComponent = () => {
   const [search, setSearch] = useState('');
-  const { data: products } = useGetProducts(search);
-  const items = products?.data?.length || 0;
+  const { data: { data: products = [] } = {} } = useGetProducts(search);
+  const items = products?.length || 0;
   const { navigate } = useNavigation();
   const { user } = authStore.getState();
   const favorites = getFavorites();
@@ -100,10 +100,10 @@ const ProductsScreen: React.FunctionComponent = () => {
         value={search}
         containerStyle={styles.searchBarContainer}
       />
-      {products && products.data.length !== 0 && search.length > 0 ? (
+      {products && products.length !== 0 && search.length > 0 ? (
         <SearchComponent
           search={search}
-          products={products.data}
+          products={products}
           likedProducts={favorites}
           onClearAllPress={() => handleSearch('')}
         />
@@ -112,7 +112,7 @@ const ProductsScreen: React.FunctionComponent = () => {
           <FlatList
             scrollEnabled
             showsHorizontalScrollIndicator={false}
-            data={products?.data}
+            data={products}
             keyExtractor={product => product.id.toString()}
             renderItem={({ item, index }) => {
               return ProductItem({

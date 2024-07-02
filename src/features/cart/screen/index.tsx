@@ -25,7 +25,7 @@ import styles from './styles';
 const CartScreen = () => {
   const { navigate } = useNavigation();
   const [search, setSearch] = useState('');
-  const { data: products } = useGetProducts(search);
+  const { data: { data: products = [] } = {} } = useGetProducts(search);
   const { data: cart, refetch } = useGetCart();
   const { mutate: removeItem } = useRemoveProductFromCart({
     onError: error => {
@@ -75,10 +75,10 @@ const CartScreen = () => {
         value={search}
         containerStyle={styles.searchBarContainer}
       />
-      {products && products.data.length !== 0 && search.length > 0 ? (
+      {products.length && search.length > 0 ? (
         <SearchComponent
           search={search}
-          products={products.data}
+          products={products}
           likedProducts={[]}
           onClearAllPress={() => handleSearch('')}
         />

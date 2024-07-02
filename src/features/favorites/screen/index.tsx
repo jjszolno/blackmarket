@@ -13,7 +13,7 @@ import FavoriteItem from './favoriteItem';
 import styles from './styles';
 
 const FavoritesScreen = () => {
-  const { data } = useGetFavorites();
+  const { data: { data: favorites = [] } = {} } = useGetFavorites();
   const queryClient = useQueryClient();
   const { mutate: removeFavoriteCall } = useRemoveFavorite({
     onError: error => {
@@ -32,13 +32,13 @@ const FavoritesScreen = () => {
         <FlatList
           scrollEnabled
           showsHorizontalScrollIndicator={false}
-          data={data?.data}
+          data={favorites}
           keyExtractor={product => product.id.toString()}
           renderItem={({ item, index }) => {
             return FavoriteItem({
               item,
               index,
-              size: data?.data.length || 0,
+              size: favorites?.length || 0,
               onRemovePress: () => {
                 removeFavoriteCall(item.id);
               },

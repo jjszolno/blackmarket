@@ -22,11 +22,9 @@ const DetailScreen = ({
   },
 }: DetailNavigationProps) => {
   const styles = useStyles();
-  const product = useGetProductById(productId);
-  const [selectedImage, setSelectedImage] = useState<string | null>(
-    product.data?.pictures?.[0] || null,
-  );
-  const [pictures, setPictures] = useState<string[]>(product.data?.pictures || []);
+  const { data: product } = useGetProductById(productId);
+  const [selectedImage, setSelectedImage] = useState<string | null>(product?.pictures?.[0] || null);
+  const [pictures, setPictures] = useState<string[]>(product?.pictures || []);
   const [quantity, setQuantity] = useState(1);
   const [favoriteIdValue, setFavoriteId] = useState<number | undefined>(favoriteId);
   const { user } = authStore.getState();
@@ -79,10 +77,10 @@ const DetailScreen = ({
   };
 
   useEffect(() => {
-    if (product.data?.pictures) {
-      setSelectedImage(product.data.pictures[0]);
+    if (product?.pictures) {
+      setSelectedImage(product.pictures[0]);
     }
-  }, [product.data]);
+  }, [product]);
 
   //As the base doesn't have any pictures, we need to add some placeholders
   useEffect(() => {
@@ -98,9 +96,9 @@ const DetailScreen = ({
   return (
     <ScrollView style={styles.container}>
       <View style={styles.flexContainer}>
-        <Text style={styles.status}>{product.data?.state}</Text>
-        <Text style={styles.title}>{product.data?.title}</Text>
-        <Text style={styles.price}>{product.data?.unitPrice}</Text>
+        <Text style={styles.status}>{product?.state}</Text>
+        <Text style={styles.title}>{product?.title}</Text>
+        <Text style={styles.price}>{product?.unitPrice}</Text>
 
         {selectedImage && (
           <View style={styles.imageContainer}>
@@ -142,7 +140,7 @@ const DetailScreen = ({
           </View>
           <View style={styles.availabilityContainer}>
             <Text style={styles.availabilityLabel}>
-              {translate('screen.product.quantity', { value: product.data?.stock })}
+              {translate('screen.product.quantity', { value: product?.stock })}
             </Text>
             <TouchableOpacity
               style={styles.addToCartButton}
@@ -154,7 +152,7 @@ const DetailScreen = ({
           </View>
         </View>
         <Text style={styles.descriptionTitle}>{translate('screen.product.description')}</Text>
-        <Text style={styles.descriptionText}>{product.data?.description}</Text>
+        <Text style={styles.descriptionText}>{product?.description}</Text>
       </View>
     </ScrollView>
   );

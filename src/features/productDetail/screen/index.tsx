@@ -129,7 +129,7 @@ const DetailScreen = ({
         />
         <View style={styles.buttonContainer}>
           <View style={styles.quantityContainer}>
-            <Text style={styles.quantityLabel}>Quantity</Text>
+            <Text style={styles.quantityLabel}>{translate('screen.product.quantity')}</Text>
             <View style={styles.quantitySelector}>
               <Picker selectedValue={quantity} onValueChange={setQuantity}>
                 {Array.from({ length: 10 }, (_, index) => (
@@ -139,15 +139,19 @@ const DetailScreen = ({
             </View>
           </View>
           <View style={styles.availabilityContainer}>
-            <Text style={styles.availabilityLabel}>Availability: {product.data?.stock} items</Text>
+            <Text style={styles.availabilityLabel}>
+              {translate('screen.product.quantity', { value: product.data?.stock })}
+            </Text>
             <TouchableOpacity
               style={styles.addToCartButton}
               onPress={() => onAddToCartPress(productId)}>
-              <Text style={styles.addToCartButtonText}>Add to Cart</Text>
+              <Text style={styles.addToCartButtonText}>
+                {translate('screen.product.addToCart')}
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
-        <Text style={styles.descriptionTitle}>Product Description</Text>
+        <Text style={styles.descriptionTitle}>{translate('screen.product.description')}</Text>
         <Text style={styles.descriptionText}>{product.data?.description}</Text>
       </View>
     </ScrollView>

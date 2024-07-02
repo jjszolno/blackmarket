@@ -67,7 +67,13 @@
     },
     "cart": {
       "title": "Cart",
-      "empty": "Your cart is empty"
+      "empty": "Your cart is empty",
+      "remove": "Remove",
+      "shoppingCart": "My shopping cart",
+      "clearAll": "Clear all",
+      "total": "TOTAL",
+      "checkout": "Go to checkout",
+      "noItems": "No items in cart"
     },
     "purchases": {
       "title": "My previous purchases",
@@ -75,7 +81,14 @@
     },
     "favorites": {
       "title": "Favorites",
-      "empty": "Your favorites are empty"
+      "empty": "Your favorites are empty",
+      "remove": "Remove"
+    },
+    "product": {
+      "quantity": "Quantity",
+      "available": "Availability: $s items",
+      "addToCart": "Add to cart",
+      "description": "Product Description"
     },
     "checkout": {
       "title": "Please add your shipping address",

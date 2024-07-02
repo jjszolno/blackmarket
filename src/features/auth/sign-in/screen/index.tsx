@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Image, ImageBackground, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
 
 import { translate } from 'localization/hooks';
 
@@ -20,8 +21,11 @@ const SignInScreen: React.FunctionComponent<SignInNavigationProps> = props => {
   const logoImage = require('assets/auth/logo.png');
 
   const { mutate } = useSignIn({
-    onError: () => {
-      setError(translate('screen.signIn.errorAPI'));
+    onError: data => {
+      showMessage({
+        message: data.cause?.message || translate('screen.signIn.errorAPI'),
+        type: 'danger',
+      });
     },
     onSuccess: () => {},
   });

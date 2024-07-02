@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ScrollView, Switch, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
 
 import { Picker } from '@react-native-picker/picker';
 import { NavigationProp } from '@react-navigation/native';
@@ -42,8 +43,8 @@ const CheckoutScreen: React.FC<CheckoutScreenProps> = props => {
   }));
 
   const { mutate } = useAddOrder({
-    onError: () => {
-      setError(translate('screen.checkout.errorAPI'));
+    onError: errorData => {
+      showMessage({ message: errorData.cause?.message || errorData.message, type: 'danger' });
     },
     onSuccess: () => {
       props.navigation.goBack();

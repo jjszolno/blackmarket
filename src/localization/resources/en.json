@@ -103,7 +103,8 @@
     }
   },
   "alert": {
-    "update": "Please update the app to continue"
+    "update": "Please update the app to continue",
+    "addedToCart": "Product added to cart."
   },
   "buttons": {
     "ok": "Ok"

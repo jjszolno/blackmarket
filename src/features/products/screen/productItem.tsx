@@ -31,7 +31,6 @@ const ProductItem: React.FunctionComponent<{
           ) : (
             <Icon name="heart-outlined" size={24} color="#000000" />
           )}
-          {/* <Icon name="heart-outlined" size={24} color="#000000" /> */}
         </TouchableOpacity>
         <TouchableOpacity style={styles.buyButton} onPress={() => onBuyPress()}>
           <Text style={styles.buyText}>{translate('screen.product.addToCart')}</Text>

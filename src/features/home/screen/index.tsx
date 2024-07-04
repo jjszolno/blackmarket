@@ -4,7 +4,7 @@ import { FlatList, Image, ScrollView, Text, TouchableOpacity, View } from 'react
 import { showMessage } from 'react-native-flash-message';
 import Icon from 'react-native-vector-icons/AntDesign';
 import IconAwesome from 'react-native-vector-icons/FontAwesome';
-import { authStore } from 'store';
+import { addFavorite, authStore, getFavorites, removeFavorite, setFavorites } from 'store';
 
 import { useNavigation } from '@react-navigation/native';
 import { SearchBar } from '@rneui/themed';
@@ -15,7 +15,7 @@ import { translate } from 'localization/hooks';
 
 import { MainStackScreens } from 'navigation/stacks/main';
 
-import { Favorite, FavoriteParams } from 'network/models/product-models';
+import { FavoriteParams } from 'network/models/product-models';
 import {
   useAddFavorite,
   useGetFavorites,
@@ -35,30 +35,30 @@ const HomeScreen: React.FunctionComponent = () => {
   const { data: products } = useGetProducts(search);
   const { navigate } = useNavigation();
   const { user } = authStore.getState();
-  const { data: favoriteProducts, refetch } = useGetFavorites();
-  const [likedProducts, setLikedProducts] = useState<Favorite[]>([]);
-  const { mutate: addFavorite } = useAddFavorite({
+  const { data: favoriteProducts } = useGetFavorites();
+  const favorites = getFavorites();
+  const { mutate: addFavoriteCall } = useAddFavorite({
     onError: error => {
       showMessage({ message: error.cause?.message || error.message, type: 'danger' });
     },
     onSuccess: data => {
-      setLikedProducts([...likedProducts, data]);
+      addFavorite(data);
     },
   });
 
-  const { mutate: removeFavorite } = useRemoveFavorite({
+  const { mutate: removeFavoriteCall } = useRemoveFavorite({
     onError: error => {
       showMessage({ message: error.cause?.message || error.message, type: 'danger' });
     },
-    onSuccess: () => {
-      refetch();
+    onSuccess: response => {
+      removeFavorite(response.id);
     },
   });
 
   const handleLikePress = (id: number) => {
-    const favorite = likedProducts?.find(product => product.product.id === id);
+    const favorite = favorites.find(product => product.product.id === id);
     if (favorite !== undefined) {
-      removeFavorite(favorite.id);
+      removeFavoriteCall(favorite.id);
     } else {
       const favoriteProduct: FavoriteParams = {
         favorite_products: {
@@ -66,7 +66,7 @@ const HomeScreen: React.FunctionComponent = () => {
           user_id: user?.id,
         },
       };
-      addFavorite(favoriteProduct);
+      addFavoriteCall(favoriteProduct);
     }
   };
 
@@ -81,7 +81,7 @@ const HomeScreen: React.FunctionComponent = () => {
 
   useEffect(() => {
     if (favoriteProducts) {
-      setLikedProducts(favoriteProducts.data);
+      setFavorites(favoriteProducts.data);
     }
   }, [favoriteProducts]);
 
@@ -98,7 +98,7 @@ const HomeScreen: React.FunctionComponent = () => {
         <SearchComponent
           search={search}
           products={products.data}
-          likedProducts={likedProducts}
+          likedProducts={favorites}
           onClearAllPress={() => handleSearch('')}
         />
       ) : (
@@ -113,9 +113,9 @@ const HomeScreen: React.FunctionComponent = () => {
             renderItem={({ item }) => {
               return CarouselItem({
                 item,
-                liked: likedProducts.find(product => product.product.id === item.id) !== undefined,
+                liked: favorites.find(product => product.product.id === item.id) !== undefined,
                 onItemPress: () => {
-                  const favorite = likedProducts?.find(product => product.product.id === item.id);
+                  const favorite = favorites.find(product => product.product.id === item.id);
                   navigate(MainStackScreens.Detail, {
                     productId: item.id,
                     favoriteId: favorite?.id,
@@ -126,7 +126,7 @@ const HomeScreen: React.FunctionComponent = () => {
                 },
               });
             }}
-            extraData={likedProducts}
+            extraData={favorites}
           />
           <TouchableOpacity onPress={() => navigate(MainStackScreens.Products)}>
             <Text style={styles.seeAll}>{translate('screen.home.seeAll')}</Text>

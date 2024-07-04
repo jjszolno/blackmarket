@@ -1,8 +1,8 @@
 import { debounce } from 'lodash';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { FlatList, SafeAreaView, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
-import { authStore } from 'store';
+import { addFavorite, authStore, getFavorites, removeFavorite } from 'store';
 
 import { useNavigation } from '@react-navigation/native';
 import { SearchBar } from '@rneui/themed';
@@ -14,13 +14,9 @@ import { translate } from 'localization/hooks';
 import { MainStackScreens } from 'navigation/stacks/main';
 
 import { LineItemParams } from 'network/models/product-models';
-import { Favorite, FavoriteParams } from 'network/models/product-models';
+import { FavoriteParams } from 'network/models/product-models';
 import { useAddProductToCart } from 'network/queries/cart-queries';
-import {
-  useAddFavorite,
-  useGetFavorites,
-  useRemoveFavorite,
-} from 'network/queries/favorite-queries';
+import { useAddFavorite, useRemoveFavorite } from 'network/queries/favorite-queries';
 import { useGetProducts } from 'network/queries/product-queries';
 
 import ProductItem from './productItem';
@@ -32,8 +28,7 @@ const ProductsScreen: React.FunctionComponent = () => {
   const items = products?.data?.length || 0;
   const { navigate } = useNavigation();
   const { user } = authStore.getState();
-  const { data: favoriteProducts, refetch } = useGetFavorites();
-  const [likedProducts, setLikedProducts] = useState<Favorite[]>([]);
+  const favorites = getFavorites();
 
   const { mutate: addProductToCart } = useAddProductToCart({
     onError: error => {
@@ -54,21 +49,21 @@ const ProductsScreen: React.FunctionComponent = () => {
     addProductToCart(lineItemParams);
   };
 
-  const { mutate: addFavorite } = useAddFavorite({
+  const { mutate: addFavoriteCall } = useAddFavorite({
     onError: error => {
       showMessage({ message: error.cause?.message || error.message, type: 'danger' });
     },
     onSuccess: data => {
-      setLikedProducts([...likedProducts, data]);
+      addFavorite(data);
     },
   });
 
-  const { mutate: removeFavorite } = useRemoveFavorite({
+  const { mutate: removeFavoriteCall } = useRemoveFavorite({
     onError: error => {
       showMessage({ message: error.cause?.message || error.message, type: 'danger' });
     },
-    onSuccess: () => {
-      refetch();
+    onSuccess: response => {
+      removeFavorite(response.id);
     },
   });
 
@@ -82,9 +77,9 @@ const ProductsScreen: React.FunctionComponent = () => {
   }, [search]);
 
   const handleLikePress = (id: number) => {
-    const favorite = likedProducts?.find(product => product.product.id === id);
+    const favorite = favorites.find(product => product.product.id === id);
     if (favorite !== undefined) {
-      removeFavorite(favorite.id);
+      removeFavoriteCall(favorite.id);
     } else {
       const favoriteProduct: FavoriteParams = {
         favorite_products: {
@@ -92,15 +87,9 @@ const ProductsScreen: React.FunctionComponent = () => {
           user_id: user?.id,
         },
       };
-      addFavorite(favoriteProduct);
+      addFavoriteCall(favoriteProduct);
     }
   };
-
-  useEffect(() => {
-    if (favoriteProducts) {
-      setLikedProducts(favoriteProducts.data);
-    }
-  }, [favoriteProducts]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -115,7 +104,7 @@ const ProductsScreen: React.FunctionComponent = () => {
         <SearchComponent
           search={search}
           products={products.data}
-          likedProducts={likedProducts}
+          likedProducts={favorites}
           onClearAllPress={() => handleSearch('')}
         />
       ) : (
@@ -128,10 +117,10 @@ const ProductsScreen: React.FunctionComponent = () => {
             renderItem={({ item, index }) => {
               return ProductItem({
                 item,
-                liked: likedProducts.find(product => product.product.id === item.id) !== undefined,
+                liked: favorites.find(product => product.product.id === item.id) !== undefined,
                 isLast: index === items - 1,
                 onItemPress: () => {
-                  const favorite = likedProducts?.find(product => product.product.id === item.id);
+                  const favorite = favorites.find(product => product.product.id === item.id);
                   navigate(MainStackScreens.Detail, {
                     productId: item.id,
                     favoriteId: favorite?.id,

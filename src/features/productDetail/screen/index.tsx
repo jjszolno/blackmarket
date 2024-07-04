@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 import Icon from 'react-native-vector-icons/Entypo';
-import { authStore } from 'store';
+import { addFavorite, authStore, removeFavorite } from 'store';
 
 import { Picker } from '@react-native-picker/picker';
 
@@ -50,29 +50,31 @@ const DetailScreen = ({
     addProductToCart(lineItemParams);
   };
 
-  const { mutate: addFavorite } = useAddFavorite({
+  const { mutate: addFavoriteCall } = useAddFavorite({
     onError: error => {
       showMessage({ message: error.cause?.message || error.message, type: 'danger' });
     },
     onSuccess: data => {
+      addFavorite(data);
       setFavoriteId(data.id);
     },
   });
 
-  const { mutate: removeFavorite } = useRemoveFavorite({
+  const { mutate: removeFavoriteCall } = useRemoveFavorite({
     onError: error => {
       showMessage({ message: error.cause?.message || error.message, type: 'danger' });
     },
-    onSuccess: () => {
+    onSuccess: response => {
+      removeFavorite(response.id);
       setFavoriteId(undefined);
     },
   });
 
   const handleLikePress = () => {
     if (favoriteIdValue) {
-      removeFavorite(favoriteIdValue);
+      removeFavoriteCall(favoriteIdValue);
     } else {
-      addFavorite({ favorite_products: { product_id: productId, user_id: user?.id } });
+      addFavoriteCall({ favorite_products: { product_id: productId, user_id: user?.id } });
     }
   };
 

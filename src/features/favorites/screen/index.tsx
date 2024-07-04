@@ -1,6 +1,7 @@
 import React from 'react';
 import { FlatList, SafeAreaView, Text, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
+import { removeFavorite } from 'store';
 
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -14,12 +15,13 @@ import styles from './styles';
 const FavoritesScreen = () => {
   const { data } = useGetFavorites();
   const queryClient = useQueryClient();
-  const { mutate: removeFavorite } = useRemoveFavorite({
+  const { mutate: removeFavoriteCall } = useRemoveFavorite({
     onError: error => {
       showMessage({ message: error.cause?.message || error.message, type: 'danger' });
     },
-    onSuccess: () => {
+    onSuccess: response => {
       queryClient.invalidateQueries(['getFavorites']);
+      removeFavorite(response.id);
     },
   });
 
@@ -38,7 +40,7 @@ const FavoritesScreen = () => {
               index,
               size: data?.data.length || 0,
               onRemovePress: () => {
-                removeFavorite(item.id);
+                removeFavoriteCall(item.id);
               },
             });
           }}

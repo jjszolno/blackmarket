@@ -32,7 +32,7 @@ const fedexImage = require('assets/home/fedex.jpeg');
 const HomeScreen: React.FunctionComponent = () => {
   const styles = useStyles();
   const [search, setSearch] = useState('');
-  const { data: products } = useGetProducts(search);
+  const { data: { data: products = [] } = {} } = useGetProducts(search);
   const { navigate } = useNavigation();
   const { user } = authStore.getState();
   const { data: favoriteProducts } = useGetFavorites();
@@ -94,10 +94,10 @@ const HomeScreen: React.FunctionComponent = () => {
         value={search}
         containerStyle={styles.searchBarContainer}
       />
-      {products && products.data.length !== 0 && search.length > 0 ? (
+      {products.length && search.length > 0 ? (
         <SearchComponent
           search={search}
-          products={products.data}
+          products={products}
           likedProducts={favorites}
           onClearAllPress={() => handleSearch('')}
         />
@@ -108,7 +108,7 @@ const HomeScreen: React.FunctionComponent = () => {
             horizontal
             scrollEnabled
             showsHorizontalScrollIndicator={false}
-            data={products?.data}
+            data={products}
             keyExtractor={product => product.id.toString()}
             renderItem={({ item }) => {
               return CarouselItem({

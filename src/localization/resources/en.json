@@ -106,6 +106,7 @@
       "cvcCode": "CVC Code *",
       "cvc": "CVC",
       "sameAddress": "Use my shipping address as my billing address",
+      "billingAddress": "Please add your billing address",
       "placeOrder": "Buy",
       "cancel": "Cancel",
       "errorInvalidPayment": "Invalid payment details",
@@ -121,5 +122,18 @@
   },
   "buttons": {
     "ok": "Ok"
+  },
+  "checkout": {
+    "errors": {
+      "city": "City is required",
+      "country": "Country is required",
+      "address1": "Address line 1 is required",
+      "address2": "Address line 2 is required",
+      "postal": "Postal code is required",
+      "state": "State is required",
+      "cardNumber": "Card number is required",
+      "expirationDate": "Expiration date is required",
+      "cvcCode": "CVC code is required"
+    }
   }
 }
